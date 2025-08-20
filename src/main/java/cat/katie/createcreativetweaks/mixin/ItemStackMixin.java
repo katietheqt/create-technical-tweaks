@@ -15,7 +15,7 @@ import java.util.List;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-    @SuppressWarnings({"UnresolvedMixinReference", "LocalMayBeArgsOnly"}) // MCDev plugin doesn't correctly report this
+    @SuppressWarnings({"LocalMayBeArgsOnly"}) // MCDev plugin doesn't correctly report this
     @Inject(
             method = "getTooltipLines",
             at = @At(

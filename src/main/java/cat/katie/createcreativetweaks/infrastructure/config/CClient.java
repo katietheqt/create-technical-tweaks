@@ -25,7 +25,6 @@ public class CClient extends ConfigBase {
     public final ConfigBool clickThroughContraptions = b(false, "clickThroughContraptions",
             "Allows clicking through normal blocks on contraptions");
 
-    // clipboard
     @SuppressWarnings("unused")
     public final ConfigGroup limits = group(1, "limits", "Configure client-side bypasses of various limits");
     public final ConfigBool allowIllegalCogPlacement = b(false, "allowIllegalCogPlacement",
@@ -43,6 +42,11 @@ public class CClient extends ConfigBase {
     public final ConfigBool disableMechanicalArmRangeChecks = b(false, "disableArmRangeChecks",
             "Removes the range checks on mechanical arms",
             "This is NOT possible without modding"
+    );
+    public final ConfigBool wrenchDebugStick = b(false, "wrenchDebugStick",
+            "Wildly extends the abilities of the radial wrench menu, allowing modification of any state of" +
+                    " a block (similar to a debug stick)",
+            "This is NOT possible without modding, and has mostly dubious uses"
     );
 
     // contraption order rendering

@@ -1,4 +1,4 @@
-package cat.katie.createcreativetweaks.mixin;
+package cat.katie.createcreativetweaks.mixin.limits;
 
 import cat.katie.createcreativetweaks.infrastructure.config.AllConfigs;
 import com.simibubi.create.content.kinetics.simpleRelays.CogWheelBlock;
