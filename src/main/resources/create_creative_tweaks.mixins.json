@@ -4,12 +4,14 @@
   "package": "cat.katie.createcreativetweaks.mixin",
   "compatibilityLevel": "JAVA_16",
   "refmap": "create_creative_tweaks.refmap.json",
+  "plugin": "cat.katie.createcreativetweaks.mixin.CCTMixinPlugin",
   "mixins": [
     "ArmInteractionPoint$ModeMixin",
     "BlazeBurnerBlockEntityMixin",
     "CogWheelBlockMixin",
     "ExtendoGripRenderHandlerMixin",
     "ItemStackMixin",
+    "accessors.ChunkMapAccessor",
     "accessors.ContraptionAccessor",
     "accessors.MountedStorageManagerAccessor",
     "accessors.ToolboxInventoryAccessor",
@@ -23,13 +25,17 @@
     "contraption_order.block_entity.MechanicalBearingBlockEntityMixin",
     "contraption_order.contraption.ContraptionMixin",
     "contraption_order.contraption.PistonContraptionMixin",
-    "limits.ArmInteractionPointHandlerMixin"
+    "limits.ArmInteractionPointHandlerMixin",
+    "tick.MinecraftServerMixin",
+    "tick.ServerChunkCacheMixin",
+    "tick.ServerLevelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "minVersion": "0.8",
   "client": [
+    "ContraptionHandlerClientMixin",
     "accessors.RenderTypeAccessor",
     "contraption_order.LevelRendererMixin",
     "contraption_order.entity.ControlledContraptionEntityClientMixin",
@@ -37,7 +43,6 @@
     "contraption_order.entity.OrientedContraptionEntityClientMixin",
     "limits.AddressEditBoxMixin",
     "limits.ClipboardScreenMixin",
-    "limits.PackagePortScreenMixin",
-    "ContraptionHandlerClientMixin"
+    "limits.PackagePortScreenMixin"
   ]
 }

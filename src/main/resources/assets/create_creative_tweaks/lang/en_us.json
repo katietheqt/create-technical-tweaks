@@ -5,5 +5,9 @@
   "create_creative_tweaks.gui.client_assembly.header": "Contraption Order",
   "create_creative_tweaks.gui.client_assembly.state.all": "Showing All",
   "create_creative_tweaks.gui.client_assembly.state.actors": "Showing Actors/Storages",
-  "create_creative_tweaks.gui.clipboard.edit_json": "Edit as JSON"
+  "create_creative_tweaks.gui.clipboard.edit_json": "Edit as JSON",
+  "create_creative_tweaks.command.tick.unfreeze.success": "Unfrozen",
+  "create_creative_tweaks.command.tick.unfreeze.not_frozen": "Cannot unfreeze a server that isn't frozen",
+  "create_creative_tweaks.command.tick.freeze.success": "Frozen",
+  "create_creative_tweaks.command.tick.freeze.already_frozen": "Server is already frozen"
 }

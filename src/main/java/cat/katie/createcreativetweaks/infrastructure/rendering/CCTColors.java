@@ -5,6 +5,7 @@ import net.createmod.catnip.theme.Color;
 @SuppressWarnings("unused")
 public class CCTColors {
     public static final Color TRANSLUCENT_GRAY = new Color(0x99777777);
+    public static final Color ICE_BLUE = new Color(0xFF6A88C4);
 
     public static final Color BLACK = new Color(0xFF000000);
     public static final Color DARK_BLUE = new Color(0xFF0000AA);
