@@ -51,6 +51,7 @@ public enum TickRateManager {
         }
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     public boolean shouldTickEntity(Entity entity) {
         if (runsNormally()) {
             return true;

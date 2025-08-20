@@ -2,10 +2,8 @@ package cat.katie.createcreativetweaks.infrastructure;
 
 import cat.katie.createcreativetweaks.features.tick.TickCommands;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.CommandNode;
-import net.createmod.catnip.command.CatnipCommands;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraftforge.event.RegisterCommandsEvent;

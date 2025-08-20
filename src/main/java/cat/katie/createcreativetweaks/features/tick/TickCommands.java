@@ -3,7 +3,6 @@ package cat.katie.createcreativetweaks.features.tick;
 import cat.katie.createcreativetweaks.infrastructure.rendering.CCTColors;
 import cat.katie.createcreativetweaks.util.CCTLang;
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.createmod.catnip.theme.Color;
 import net.minecraft.commands.CommandSourceStack;

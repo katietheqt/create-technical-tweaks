@@ -46,6 +46,7 @@ public class CCTMixinPlugin implements IMixinConfigPlugin {
         return List.of();
     }
 
+    @SuppressWarnings("unchecked")
     private static void applyAsm(ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo, BiConsumer<ASMTransformer, ClassNode> consumer) {
         ClassNode mixinNode = mixinInfo.getClassNode(ClassReader.SKIP_CODE);
         AnnotationNode asmAnnotation = Annotations.getInvisible(mixinNode, ASM.class);
@@ -94,7 +95,6 @@ public class CCTMixinPlugin implements IMixinConfigPlugin {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
         applyAsm(targetClass, mixinClassName, mixinInfo, ASMTransformer::preTransform);

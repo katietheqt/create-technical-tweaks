@@ -42,9 +42,7 @@ public class ServerChunkCacheMixin {
         for (ChunkHolder holder : chunks) {
             Optional<LevelChunk> optional = holder.getTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK).left();
 
-            if (optional.isPresent()) {
-                holder.broadcastChanges(optional.get());
-            }
+            optional.ifPresent(holder::broadcastChanges);
         }
         this.level.getProfiler().pop();
 
