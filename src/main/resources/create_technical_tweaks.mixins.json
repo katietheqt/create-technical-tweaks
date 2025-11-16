@@ -1,0 +1,50 @@
+{
+  "required": true,
+  "priority": 1100,
+  "package": "cat.katie.createtechnicaltweaks.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "create_technical_tweaks.refmap.json",
+  "plugin": "cat.katie.createtechnicaltweaks.mixin.CTTMixinPlugin",
+  "mixins": [
+    "ArmInteractionPointHandlerMixin",
+    "ArmItemMixin",
+    "BlazeBurnerBlockEntityMixin",
+    "ExtendoGripRenderHandlerMixin",
+    "ItemStackMixin",
+    "accessors.ContraptionAccessor",
+    "accessors.MountedStorageManagerAccessor",
+    "accessors.ToolboxInventoryAccessor",
+    "bugfix.AbstractContraptionEntityMixin",
+    "contraption_order.EntityMixin",
+    "contraption_order.GoggleOverlayRendererMixin",
+    "contraption_order.block.BearingBlockMixin",
+    "contraption_order.block.CartAssemblerBlockMixin",
+    "contraption_order.block.GantryCarriageBlockMixin",
+    "contraption_order.block.MechanicalPistonBlockMixin",
+    "contraption_order.block_entity.LinearActuatorBlockEntityMixin",
+    "contraption_order.block_entity.MechanicalBearingBlockEntityMixin",
+    "contraption_order.contraption.ContraptionMixin",
+    "contraption_order.contraption.PistonContraptionMixin",
+    "limits.ArmInteractionPointHandlerMixin",
+    "limits.CogWheelBlockMixin",
+    "limits.SuperGlueSelectionPacketMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8",
+  "client": [
+    "ContraptionHandlerClientMixin",
+    "accessors.RenderTypeAccessor",
+    "bugfix.RadialWrenchMenuMixin",
+    "contraption_order.LevelRendererMixin",
+    "contraption_order.entity.ControlledContraptionEntityClientMixin",
+    "contraption_order.entity.GantryContraptionEntityClientMixin",
+    "contraption_order.entity.OrientedContraptionEntityClientMixin",
+    "limits.AddressEditBoxMixin",
+    "limits.ClipboardScreenMixin",
+    "limits.PackagePortScreenMixin",
+    "limits.RadialWrenchMenuMixin",
+    "limits.SuperGlueSelectionHandlerMixin"
+  ]
+}

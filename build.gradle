@@ -1,148 +1,109 @@
 plugins {
-    id 'idea'
+    id 'java-library'
     id 'maven-publish'
-    id "net.neoforged.moddev.legacyforge" version "2.0.74"
+    id 'net.neoforged.gradle.userdev' version '7.1.4'
 }
 
+tasks.named('wrapper', Wrapper).configure {
+    // Define wrapper values here so as to not have to always do so when updating gradlew.properties.
+    // Switching this to Wrapper.DistributionType.ALL will download the full gradle sources that comes with
+    // documentation attached on cursor hover of gradle classes and methods. However, this comes with increased
+    // file size for Gradle. If you do switch this to ALL, run the Gradle wrapper task twice afterwards.
+    // (Verify by checking gradle/wrapper/gradle-wrapper.properties to see if distributionUrl now points to `-all`)
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
 base {
-    archivesName = "create_creative_tweaks"
-    group = 'cat.katie.createcreativetweaks'
+    archivesName = mod_id
     version = "${mod_version}-for-create-${create_version}"
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
-
-legacyForge {
-    version = "$minecraft_version-$forge_version"
-
-    // TODO - Try turning this on later see Create
-//    validateAccessTransformers = false
-    accessTransformers.from "src/main/resources/META-INF/accesstransformer.cfg"
-
-    parchment {
-        minecraftVersion = minecraft_version
-        mappingsVersion = parchment_version
-    }
-
-    mods {
-        create_creative_tweaks {
-            sourceSet sourceSets.main
-        }
-    }
-
-    runs {
-        // applies to all the run configs below
-        configureEach {
-            systemProperty 'forge.logging.markers', ''
-            systemProperty 'forge.logging.console.level', 'info'
-            jvmArguments = ["-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition"]
-            //jvmArgs("-XX:-OmitStackTraceInFastThrow") // uncomment when you get exceptions with null messages etc
-            //jvmArgs '-XX:+UnlockCommercialFeatures' // uncomment for profiling
-
-            systemProperty 'mixin.debug.export', 'true'
-            systemProperty 'mixin.debug.verbose', 'true'
-
-            programArgument '-mixin.config=create_creative_tweaks.mixins.json'
-        }
-
-        client {
-            client()
-
-            gameDirectory = project.file('run')
-        }
-
-        server {
-            server()
-
-            gameDirectory = project.file('run/server')
-        }
-
-        data {
-            data()
-
-            gameDirectory = project.file('run')
-            systemProperty 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
-            systemProperty 'forge.logging.console.level', 'debug'
-            programArguments.addAll("--mod", "create_creative_tweaks", "--all", "--output", file("src/generated/resources/").getAbsolutePath(), "--existing", file("src/main/resources").getAbsolutePath())
-        }
-
-        gameTestServer {
-            type = "gameTestServer"
-
-            gameDirectory = project.file('run/gametest')
-            // setForceExit false <- FIXME 1.20  see Create
-        }
-    }
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 repositories {
-    maven { url = "https://maven.createmod.net" } // Ponder, Flywheel
-    maven { url = "https://maven.tterrag.com" } // Registrate
-    maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
-    maven { url = "https://maven.theillusivec4.top/" } // Curios API
-    maven { url = "https://www.cursemaven.com" }
-    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
 }
 
 dependencies {
-    modImplementation("com.simibubi.create:create-${minecraft_version}:${create_version}-${create_version_number}:slim") { transitive = false }
-    modImplementation("net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}")
-    modCompileOnly("dev.engine-room.flywheel:flywheel-forge-api-${flywheel_minecraft_version}:${flywheel_version}")
-    modRuntimeOnly("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
-    modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
-    implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
-
-    modCompileOnly("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
-    modImplementation("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
-
-    modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}+${curios_minecraft_version}:api")
-    modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}+${curios_minecraft_version}")
-
-    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    implementation("net.neoforged:neoforge:${neo_version}")
+    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
+    implementation("net.createmod.ponder:Ponder-NeoForge-${minecraft_version}:${ponder_version}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
+    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
+    implementation("com.tterrag.registrate:Registrate:${registrate_version}")
 }
 
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-    exclude ".cache"
-    exclude "assets/create_creative_tweaks/lang-gen"
-    exclude "assets/create_creative_tweaks/lang/default"
-}
+minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
-mixin {
-    add sourceSets.main, 'create_creative_tweaks.refmap.json'
-    config 'create_creative_tweaks.mixins.json'
-}
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', ''
+        systemProperty 'forge.logging.console.level', 'debug'
+        systemProperty 'mixin.debug.export', 'true'
+        systemProperty 'mixin.debug.verbose', 'true'
+        jvmArguments = ["-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition"]
 
-
-jar {
-    from('LICENSE') {
-        rename { "${it}_${archivesBaseName}" }
+        modSource project.sourceSets.main
     }
-    manifest {
-        attributes([
-                "Specification-Title"     : "create_creative_tweaks",
-                "Specification-Vendor"    : "katietheqt",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "katietheqt",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'MixinConfigs': 'create_creative_tweaks.mixins.json'
-        ])
+
+    client {
+        // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    server {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        argument '--nogui'
+    }
+
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    data {
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// This block of code expands all declared replace properties in the specified resource targets.
+// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
+// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
+// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description,
+            create_version_range   : create_version_range,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
 }
