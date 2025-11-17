@@ -1,8 +1,8 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order;
+package cat.katie.createtechnicaltweaks.features.contraption_debug;
 
 import cat.katie.createtechnicaltweaks.duck.ContraptionDuck;
-import cat.katie.createtechnicaltweaks.features.contraption_order.state.OrderState;
-import cat.katie.createtechnicaltweaks.features.contraption_order.state.UnassembledOrderState;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.state.ContraptionDebugState;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.state.UnassembledDebugState;
 import cat.katie.createtechnicaltweaks.infrastructure.config.AllConfigs;
 import cat.katie.createtechnicaltweaks.infrastructure.config.CClient;
 import cat.katie.createtechnicaltweaks.mixin.accessors.ContraptionAccessor;
@@ -10,7 +10,6 @@ import cat.katie.createtechnicaltweaks.mixin.accessors.MountedStorageManagerAcce
 import cat.katie.createtechnicaltweaks.infrastructure.rendering.CTTColors;
 import cat.katie.createtechnicaltweaks.infrastructure.rendering.CustomRenderTypes;
 import cat.katie.createtechnicaltweaks.util.CTTLang;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.api.contraption.storage.item.MountedItemStorage;
@@ -23,15 +22,15 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.MutablePair;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -40,14 +39,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-class ContraptionOrderRenderer {
+class ContraptionDebugRenderer {
     private static final float FONT_SCALE = 0.015F;
 
     private final Map<BlockPos, LangBuilder> blockText = new HashMap<>();
 
-    private final OrderState state;
+    private final ContraptionDebugState state;
 
-    private ContraptionOrderRenderer(OrderState state) {
+    private ContraptionDebugRenderer(ContraptionDebugState state) {
         this.state = state;
     }
 
@@ -70,7 +69,7 @@ class ContraptionOrderRenderer {
     }
 
     private void addExceptionData() {
-        if (!(state instanceof UnassembledOrderState unassembledState)) {
+        if (!(state instanceof UnassembledDebugState unassembledState)) {
             return;
         }
 
@@ -158,14 +157,14 @@ class ContraptionOrderRenderer {
             }
         }
 
-        if (!blockText.containsKey(BlockPos.ZERO)) {
+        if (state.displayState().showAnchorPoint() && !blockText.containsKey(BlockPos.ZERO)) {
             // mark the anchor if it isn't already marked
             getOrAppend(BlockPos.ZERO, CTTLang.text("*").color(config.anchorPointTextColor.get()));
         }
     }
 
-    public static void renderOverlay(PoseStack stack, MultiBufferSource.BufferSource buffers, Camera camera, OrderState state, float partialTicks) {
-        ContraptionOrderRenderer renderer = new ContraptionOrderRenderer(state);
+    public static void renderOverlay(PoseStack stack, MultiBufferSource.BufferSource buffers, Camera camera, ContraptionDebugState state, float partialTicks) {
+        ContraptionDebugRenderer renderer = new ContraptionDebugRenderer(state);
         renderer.gatherData();
         renderer.render(stack, buffers, camera, partialTicks);
     }
@@ -186,10 +185,15 @@ class ContraptionOrderRenderer {
 
         stack.pushPose();
         stack.translate(-camPos.x, -camPos.y, -camPos.z);
-        stack.translate(0.5F, 0.5F, 0.5F);
 
         // setup render position
         state.setupRenderTransform(stack, partialTicks);
+
+        if (state.displayState().showCollisionBoxes()) {
+            drawCollisionBoxes(stack, buffers);
+        }
+
+        stack.translate(0.5F, 0.5F, 0.5F);
 
         if (state.displayState().showFrontierOrdering()) {
             maybeDrawFrontierLines(stack, buffers);
@@ -251,6 +255,16 @@ class ContraptionOrderRenderer {
                     .setColor(color)
                     .setNormal(stack.last(), normal.x, normal.y, normal.z);
         }
+    }
+
+    private void drawCollisionBoxes(PoseStack stack, MultiBufferSource buffers) {
+        state.contraption().getSimplifiedEntityColliders().ifPresent(boxes -> {
+            VertexConsumer consumer = buffers.getBuffer(RenderType.lines());
+
+            for (AABB bb : boxes) {
+                LevelRenderer.renderLineBox(stack, consumer, bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ, 0.5F, 0.5F, 1.0F, 1.0F, 0.5F, 0.5F, 1.0F);
+            }
+        });
     }
 
     private void drawString(Component text, float yOff, Font font, PoseStack stack, MultiBufferSource buffers, Camera camera, float partialTicks) {

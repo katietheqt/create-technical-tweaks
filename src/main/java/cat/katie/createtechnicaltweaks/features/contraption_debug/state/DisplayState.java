@@ -1,8 +1,9 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order.state;
+package cat.katie.createtechnicaltweaks.features.contraption_debug.state;
 
 public enum DisplayState {
-    FRONTIER,
+    FRONTIER_ACTORS_STORAGES,
     ACTORS_STORAGES,
+    COLLISION_BOXES,
     DISABLED;
 
     private static final DisplayState[] VALUES = DisplayState.values();
@@ -16,14 +17,22 @@ public enum DisplayState {
     }
 
     public boolean showFrontierOrdering() {
-        return this == FRONTIER;
+        return this == FRONTIER_ACTORS_STORAGES;
     }
 
     public boolean showStorageOrder() {
-        return true;
+        return this != COLLISION_BOXES;
     }
 
     public boolean showActorOrder() {
-        return true;
+        return this != COLLISION_BOXES;
+    }
+
+    public boolean showAnchorPoint() {
+        return this != COLLISION_BOXES;
+    }
+
+    public boolean showCollisionBoxes() {
+        return this == COLLISION_BOXES;
     }
 }

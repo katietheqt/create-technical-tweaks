@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.features.enhanced_stock_keeper;
+package cat.katie.createtechnicaltweaks.features.stock_keeper;
 
 public class EnhancedStockKeeperSettings {
     // custom category ordering

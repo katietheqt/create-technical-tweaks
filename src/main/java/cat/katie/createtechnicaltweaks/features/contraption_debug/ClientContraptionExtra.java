@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order;
+package cat.katie.createtechnicaltweaks.features.contraption_debug;
 
 import net.minecraft.core.BlockPos;
 

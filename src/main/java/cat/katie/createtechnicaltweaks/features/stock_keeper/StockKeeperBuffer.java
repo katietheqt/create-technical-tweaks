@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.features.enhanced_stock_keeper;
+package cat.katie.createtechnicaltweaks.features.stock_keeper;
 
 import net.minecraft.util.Mth;
 

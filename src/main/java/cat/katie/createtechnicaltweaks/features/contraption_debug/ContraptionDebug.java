@@ -1,10 +1,10 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order;
+package cat.katie.createtechnicaltweaks.features.contraption_debug;
 
 import cat.katie.createtechnicaltweaks.duck.IContraptionSimulationAnchorBlock;
 import cat.katie.createtechnicaltweaks.duck.IMovingContraptionAnchorBlockEntity;
-import cat.katie.createtechnicaltweaks.features.contraption_order.state.OrderState;
-import cat.katie.createtechnicaltweaks.features.contraption_order.state.ContraptionOrderState;
-import cat.katie.createtechnicaltweaks.features.contraption_order.state.UnassembledOrderState;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.state.ContraptionDebugState;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.state.AssembledDebugState;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.state.UnassembledDebugState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
@@ -29,22 +29,22 @@ import java.util.*;
 // TODO:
 //  - handle clockwork bearings properly
 
-public enum ContraptionOrder {
+public enum ContraptionDebug {
     INSTANCE;
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
     // map of block anchorPos containing anchor (cart assembler/bearing/etc) to unassembled contraption info
-    private final Set<OrderState> states = new HashSet<>();
-    private final Map<BlockPos, OrderState> stationaryStates = new HashMap<>();
-    private final WeakHashMap<AbstractContraptionEntity, ContraptionOrderState> movingContraptionStates = new WeakHashMap<>();
+    private final Set<ContraptionDebugState> states = new HashSet<>();
+    private final Map<BlockPos, ContraptionDebugState> stationaryStates = new HashMap<>();
+    private final WeakHashMap<AbstractContraptionEntity, AssembledDebugState> movingContraptionStates = new WeakHashMap<>();
 
     /**
      * Destroys a given anchor state.
      *
      * @param state the state to remove
      */
-    private void removeState(OrderState state) {
+    private void removeState(ContraptionDebugState state) {
         if (state == null) {
             return;
         }
@@ -71,8 +71,8 @@ public enum ContraptionOrder {
      * @return the stationary anchor state at the given position, if one exists
      */
     @Nullable
-    private OrderState getStationaryAnchorState(BlockPos anchorPos) {
-        OrderState state = stationaryStates.get(anchorPos);
+    private ContraptionDebugState getStationaryAnchorState(BlockPos anchorPos) {
+        ContraptionDebugState state = stationaryStates.get(anchorPos);
 
         // remove invalid contraptions
         if (state == null) {
@@ -94,7 +94,7 @@ public enum ContraptionOrder {
      * @return {@literal true} if an existing anchor exists, or {@literal false} if one does not.
      */
     public boolean handleExistingStationaryAnchorClick(BlockPos anchorPos) {
-        OrderState state = getStationaryAnchorState(anchorPos);
+        ContraptionDebugState state = getStationaryAnchorState(anchorPos);
 
         if (state == null) {
             return false;
@@ -115,8 +115,8 @@ public enum ContraptionOrder {
      * @return the moving anchor state at the given position, if one exists
      */
     @Nullable
-    private OrderState getMovingAnchorState(AbstractContraptionEntity entity) {
-        OrderState state = movingContraptionStates.get(entity);
+    private ContraptionDebugState getMovingAnchorState(AbstractContraptionEntity entity) {
+        ContraptionDebugState state = movingContraptionStates.get(entity);
 
         // remove invalid contraptions
         if (state == null) {
@@ -138,7 +138,7 @@ public enum ContraptionOrder {
      * @return {@literal true} if an existing anchor exists, or {@literal false} if one does not.
      */
     public boolean handleExistingMovingAnchorClick(AbstractContraptionEntity entity) {
-        OrderState state = getMovingAnchorState(entity);
+        ContraptionDebugState state = getMovingAnchorState(entity);
 
         if (state == null) {
             return false;
@@ -155,7 +155,7 @@ public enum ContraptionOrder {
     /**
      * Adds a new anchor state at the given position. One must not already exist.
      */
-    public void addNewStationaryState(BlockPos blockPos, OrderState state) {
+    public void addNewStationaryState(BlockPos blockPos, ContraptionDebugState state) {
         if (stationaryStates.containsKey(blockPos)) {
             throw new IllegalStateException("attempted to add a state when one already exists at position " + blockPos);
         }
@@ -165,13 +165,13 @@ public enum ContraptionOrder {
         states.add(state);
         stationaryStates.put(blockPos, state);
 
-        if (state instanceof ContraptionOrderState contraptionState) {
+        if (state instanceof AssembledDebugState contraptionState) {
             AbstractContraptionEntity entity = contraptionState.entity();
             movingContraptionStates.put(entity, contraptionState);
         }
     }
 
-    public void addNewMovingState(ContraptionOrderState state) {
+    public void addNewMovingState(AssembledDebugState state) {
         if (state.anchorPos() != null) {
             throw new IllegalArgumentException("cannot add a state with an anchor position as a moving state");
         }
@@ -181,7 +181,7 @@ public enum ContraptionOrder {
     }
 
     public void renderOverlay(PoseStack stack, MultiBufferSource.BufferSource buffers, Camera camera, float partialTicks) {
-        for (OrderState state : states) {
+        for (ContraptionDebugState state : states) {
             if (state.isInvalid()) {
                 continue;
             }
@@ -189,15 +189,15 @@ public enum ContraptionOrder {
             Contraption contraption = state.contraption();
 
             if (contraption != null) {
-                ContraptionOrderRenderer.renderOverlay(stack, buffers, camera, state, partialTicks);
+                ContraptionDebugRenderer.renderOverlay(stack, buffers, camera, state, partialTicks);
             }
         }
     }
 
     public void tick() {
-        Set<OrderState> invalidStates = new HashSet<>();
+        Set<ContraptionDebugState> invalidStates = new HashSet<>();
 
-        for (OrderState state : states) {
+        for (ContraptionDebugState state : states) {
 
             // remove invalid contraptions
             if (state.isInvalid()) {
@@ -212,13 +212,13 @@ public enum ContraptionOrder {
     }
 
     public boolean addGogglesTooltip(List<Component> tooltip, BlockPos pos) {
-        OrderState orderState = stationaryStates.get(pos);
+        ContraptionDebugState debugState = stationaryStates.get(pos);
 
-        if (orderState == null) {
+        if (debugState == null) {
             return false;
         }
 
-        return orderState.addGogglesTooltip(tooltip);
+        return debugState.addGogglesTooltip(tooltip);
     }
 
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -247,7 +247,7 @@ public enum ContraptionOrder {
             AbstractContraptionEntity entity = anchorBe.ctt$getExistingContraptionEntity();
 
             if (entity != null) {
-                addNewStationaryState(pos, new ContraptionOrderState(entity, pos));
+                addNewStationaryState(pos, new AssembledDebugState(entity, pos));
 
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
@@ -256,7 +256,7 @@ public enum ContraptionOrder {
         }
 
         if (state.getBlock() instanceof IContraptionSimulationAnchorBlock anchorBlock) {
-            addNewStationaryState(pos, new UnassembledOrderState(level, pos, state, () -> anchorBlock.ctt$createContraption(state)));
+            addNewStationaryState(pos, new UnassembledDebugState(level, pos, state, () -> anchorBlock.ctt$createContraption(state)));
 
             event.setCanceled(true);
             event.setCancellationResult(InteractionResult.SUCCESS);
@@ -281,7 +281,7 @@ public enum ContraptionOrder {
         }
 
         if (!handleExistingMovingAnchorClick(contraption)) {
-            addNewMovingState(new ContraptionOrderState(contraption, null));
+            addNewMovingState(new AssembledDebugState(contraption, null));
         }
 
         event.setCanceled(true);
@@ -293,7 +293,7 @@ public enum ContraptionOrder {
      * @param entity the entity that was disassembled
      */
     public void onContraptionDisassembly(AbstractContraptionEntity entity) {
-        ContraptionOrderState state = movingContraptionStates.get(entity);
+        AssembledDebugState state = movingContraptionStates.get(entity);
 
         if (state == null) {
             return;
@@ -312,7 +312,7 @@ public enum ContraptionOrder {
         BlockState anchorState = state.level().getBlockState(anchorPos);
 
         if (anchorState.getBlock() instanceof IContraptionSimulationAnchorBlock anchorBlock) {
-            UnassembledOrderState newState = new UnassembledOrderState(state.level(), anchorPos, anchorState,
+            UnassembledDebugState newState = new UnassembledDebugState(state.level(), anchorPos, anchorState,
                     () -> anchorBlock.ctt$createContraption(anchorState));
 
             newState.setDisplayState(state.displayState());
@@ -326,19 +326,19 @@ public enum ContraptionOrder {
      * @param entity the new entity
      */
     public void onStationaryContraptionAssembly(BlockPos pos, AbstractContraptionEntity entity) {
-        OrderState state = stationaryStates.get(pos);
+        ContraptionDebugState state = stationaryStates.get(pos);
 
         if (state == null) {
             return;
         }
 
-        if (!(state instanceof UnassembledOrderState unassembled)) {
+        if (!(state instanceof UnassembledDebugState unassembled)) {
             return;
         }
 
         removeState(state);
 
         // swap to a contraption state
-        addNewStationaryState(pos, new ContraptionOrderState(unassembled, entity));
+        addNewStationaryState(pos, new AssembledDebugState(unassembled, entity));
     }
 }

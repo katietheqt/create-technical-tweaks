@@ -1,7 +1,7 @@
 package cat.katie.createtechnicaltweaks.mixin.contraption_order.contraption;
 
 import cat.katie.createtechnicaltweaks.duck.ContraptionDuck;
-import cat.katie.createtechnicaltweaks.features.contraption_order.ClientContraptionExtra;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ClientContraptionExtra;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simibubi.create.content.contraptions.piston.PistonContraption;

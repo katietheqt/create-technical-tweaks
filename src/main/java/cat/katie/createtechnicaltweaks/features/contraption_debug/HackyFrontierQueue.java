@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order;
+package cat.katie.createtechnicaltweaks.features.contraption_debug;
 
 import net.createmod.catnip.data.UniqueLinkedList;
 import net.minecraft.core.BlockPos;

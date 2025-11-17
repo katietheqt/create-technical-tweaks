@@ -1,8 +1,8 @@
 package cat.katie.createtechnicaltweaks.mixin.contraption_order.contraption;
 
 import cat.katie.createtechnicaltweaks.duck.ContraptionDuck;
-import cat.katie.createtechnicaltweaks.features.contraption_order.ClientContraptionExtra;
-import cat.katie.createtechnicaltweaks.features.contraption_order.HackyFrontierQueue;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ClientContraptionExtra;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.HackyFrontierQueue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

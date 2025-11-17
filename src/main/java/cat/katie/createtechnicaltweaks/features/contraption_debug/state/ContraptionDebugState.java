@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order.state;
+package cat.katie.createtechnicaltweaks.features.contraption_debug.state;
 
 import cat.katie.createtechnicaltweaks.util.CTTLang;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,8 +17,8 @@ import java.util.List;
 /**
  * State of a contraption tied to an anchor block.
  */
-public abstract class OrderState {
-    protected DisplayState displayState = DisplayState.FRONTIER;
+public abstract class ContraptionDebugState {
+    protected DisplayState displayState = DisplayState.FRONTIER_ACTORS_STORAGES;
 
     public abstract boolean isInvalid();
 
@@ -81,8 +81,9 @@ public abstract class OrderState {
                 .forGoggles(tooltip);
 
         LangBuilder builder = switch (displayState) {
-            case FRONTIER -> CTTLang.translate("gui.client_assembly.state.all");
+            case FRONTIER_ACTORS_STORAGES -> CTTLang.translate("gui.client_assembly.state.all_assembly");
             case ACTORS_STORAGES -> CTTLang.translate("gui.client_assembly.state.actors");
+            case COLLISION_BOXES -> CTTLang.translate("gui.client_assembly.state.collision_boxes");
             case DISABLED -> throw new IllegalStateException();
         };
 

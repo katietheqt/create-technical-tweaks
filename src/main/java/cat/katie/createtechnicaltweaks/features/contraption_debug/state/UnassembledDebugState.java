@@ -1,7 +1,7 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order.state;
+package cat.katie.createtechnicaltweaks.features.contraption_debug.state;
 
 import cat.katie.createtechnicaltweaks.duck.ContraptionDuck;
-import cat.katie.createtechnicaltweaks.features.contraption_order.ClientContraptionExtra;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ClientContraptionExtra;
 import cat.katie.createtechnicaltweaks.mixin.accessors.ContraptionAccessor;
 import cat.katie.createtechnicaltweaks.util.CTTLang;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 /**
  * Anchor state representing an unassembled contraption starting at a given anchor block.
  */
-public class UnassembledOrderState extends OrderState {
+public class UnassembledDebugState extends ContraptionDebugState {
     private final Level level;
     private final BlockPos anchorPos;
     private final BlockState expectedAnchorState;
@@ -40,11 +40,16 @@ public class UnassembledOrderState extends OrderState {
     @Nullable
     private AssemblyException lastException;
 
-    public UnassembledOrderState(Level level, BlockPos anchorPos, BlockState expectedAnchorState, Supplier<Contraption> contraptionSupplier) {
+    public UnassembledDebugState(Level level, BlockPos anchorPos, BlockState expectedAnchorState, Supplier<Contraption> contraptionSupplier) {
         this.level = level;
         this.anchorPos = anchorPos;
         this.expectedAnchorState = expectedAnchorState;
         this.contraptionSupplier = contraptionSupplier;
+    }
+
+    @Override
+    public boolean isStateValid(DisplayState state) {
+        return state != DisplayState.COLLISION_BOXES;
     }
 
     public boolean isInvalid() {

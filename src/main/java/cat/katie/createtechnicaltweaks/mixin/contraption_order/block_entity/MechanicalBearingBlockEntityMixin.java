@@ -1,7 +1,7 @@
 package cat.katie.createtechnicaltweaks.mixin.contraption_order.block_entity;
 
 import cat.katie.createtechnicaltweaks.duck.IMovingContraptionAnchorBlockEntity;
-import cat.katie.createtechnicaltweaks.features.contraption_order.ContraptionOrder;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ContraptionDebug;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import com.simibubi.create.content.contraptions.ControlledContraptionEntity;
 import com.simibubi.create.content.contraptions.bearing.MechanicalBearingBlockEntity;
@@ -43,6 +43,6 @@ public abstract class MechanicalBearingBlockEntityMixin extends GeneratingKineti
             return;
         }
 
-        ContraptionOrder.INSTANCE.onStationaryContraptionAssembly(getBlockPos(), movedContraption);
+        ContraptionDebug.INSTANCE.onStationaryContraptionAssembly(getBlockPos(), movedContraption);
     }
 }

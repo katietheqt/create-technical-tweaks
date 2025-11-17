@@ -1,6 +1,6 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order;
+package cat.katie.createtechnicaltweaks.features.contraption_debug;
 
-import cat.katie.createtechnicaltweaks.features.contraption_order.state.ContraptionOrderState;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.state.AssembledDebugState;
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import net.minecraft.core.BlockPos;
@@ -22,9 +22,9 @@ public class GantryCarriageMovingInteraction extends MovingInteractionBehaviour 
             return false;
         }
 
-        if (!ContraptionOrder.INSTANCE.handleExistingMovingAnchorClick(entity)) {
+        if (!ContraptionDebug.INSTANCE.handleExistingMovingAnchorClick(entity)) {
             // if no anchor exists, add a new one
-            ContraptionOrder.INSTANCE.addNewMovingState(new ContraptionOrderState(entity, null));
+            ContraptionDebug.INSTANCE.addNewMovingState(new AssembledDebugState(entity, null));
         }
 
         return false; // don't send server packet

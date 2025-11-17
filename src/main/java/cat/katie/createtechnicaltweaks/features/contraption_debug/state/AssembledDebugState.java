@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.features.contraption_order.state;
+package cat.katie.createtechnicaltweaks.features.contraption_debug.state;
 
 import cat.katie.createtechnicaltweaks.duck.IContraptionEntityWithRotation;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,17 +16,17 @@ import java.util.Objects;
 /**
  * Anchor state tied to a contraption entity.
  */
-public class ContraptionOrderState extends OrderState {
+public class AssembledDebugState extends ContraptionDebugState {
     private final AbstractContraptionEntity entity;
 
     @Nullable
     private final BlockPos anchorPos;
 
-    public ContraptionOrderState(UnassembledOrderState unassembled, AbstractContraptionEntity entity) {
+    public AssembledDebugState(UnassembledDebugState unassembled, AbstractContraptionEntity entity) {
         this(entity, Objects.requireNonNull(unassembled.anchorPos()));
     }
 
-    public ContraptionOrderState(AbstractContraptionEntity entity, @Nullable BlockPos anchorPos) {
+    public AssembledDebugState(AbstractContraptionEntity entity, @Nullable BlockPos anchorPos) {
         super();
         this.entity = entity;
         this.displayState = DisplayState.ACTORS_STORAGES;
@@ -35,7 +35,7 @@ public class ContraptionOrderState extends OrderState {
 
     @Override
     public boolean isStateValid(DisplayState state) {
-        return state != DisplayState.FRONTIER;
+        return state != DisplayState.FRONTIER_ACTORS_STORAGES;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package cat.katie.createtechnicaltweaks.duck;
 
-import cat.katie.createtechnicaltweaks.features.contraption_order.ClientContraptionExtra;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ClientContraptionExtra;
 
 public interface ContraptionDuck {
     /**

@@ -1,6 +1,6 @@
 package cat.katie.createtechnicaltweaks.mixin.contraption_order;
 
-import cat.katie.createtechnicaltweaks.features.contraption_order.ContraptionOrder;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ContraptionDebug;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -23,7 +23,7 @@ public class EntityMixin {
                 return;
             }
 
-            ContraptionOrder.INSTANCE.onContraptionDisassembly(contraptionEntity);
+            ContraptionDebug.INSTANCE.onContraptionDisassembly(contraptionEntity);
         }
     }
 }

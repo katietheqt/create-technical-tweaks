@@ -1,6 +1,6 @@
 package cat.katie.createtechnicaltweaks.mixin.contraption_order;
 
-import cat.katie.createtechnicaltweaks.features.contraption_order.ContraptionOrder;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ContraptionDebug;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
@@ -31,9 +31,9 @@ public class LevelRendererMixin {
                                @Local(ordinal = 0) float partialTick
     ) {
         try {
-            ContraptionOrder.INSTANCE.renderOverlay(poseStack, buffers, camera, partialTick);
+            ContraptionDebug.INSTANCE.renderOverlay(poseStack, buffers, camera, partialTick);
         } catch (Exception e) {
-            ContraptionOrder.LOGGER.error("exception thrown during overlay rendering", e);
+            ContraptionDebug.LOGGER.error("exception thrown during overlay rendering", e);
         }
     }
 }

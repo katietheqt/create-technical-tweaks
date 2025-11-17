@@ -1,6 +1,6 @@
 package cat.katie.createtechnicaltweaks.mixin.contraption_order;
 
-import cat.katie.createtechnicaltweaks.features.contraption_order.ContraptionOrder;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.ContraptionDebug;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -30,7 +30,7 @@ public class GoggleOverlayRendererMixin {
             tooltip.add(CommonComponents.EMPTY);
         }
 
-        if (ContraptionOrder.INSTANCE.addGogglesTooltip(tooltip, pos)) {
+        if (ContraptionDebug.INSTANCE.addGogglesTooltip(tooltip, pos)) {
             added = true;
         } else if (!tooltip.isEmpty()) {
             tooltip.removeLast();

@@ -1,7 +1,7 @@
 package cat.katie.createtechnicaltweaks;
 
 import cat.katie.createtechnicaltweaks.features.PermaGoggles;
-import cat.katie.createtechnicaltweaks.features.contraption_order.GantryCarriageMovingInteraction;
+import cat.katie.createtechnicaltweaks.features.contraption_debug.GantryCarriageMovingInteraction;
 import cat.katie.createtechnicaltweaks.infrastructure.config.AllConfigs;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.AllBlocks;

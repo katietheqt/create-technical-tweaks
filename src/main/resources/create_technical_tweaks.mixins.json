@@ -11,6 +11,7 @@
     "BlazeBurnerBlockEntityMixin",
     "ExtendoGripRenderHandlerMixin",
     "ItemStackMixin",
+    "accessors.AbstractContainerMenuAccessor",
     "accessors.ContraptionAccessor",
     "accessors.MountedStorageManagerAccessor",
     "accessors.ToolboxInventoryAccessor",
@@ -23,13 +24,16 @@
     "contraption_order.block.CartAssemblerBlockMixin",
     "contraption_order.block.GantryCarriageBlockMixin",
     "contraption_order.block.MechanicalPistonBlockMixin",
+    "contraption_order.block_entity.ClockworkBearingBlockEntityMixin",
     "contraption_order.block_entity.LinearActuatorBlockEntityMixin",
     "contraption_order.block_entity.MechanicalBearingBlockEntityMixin",
     "contraption_order.contraption.ContraptionMixin",
     "contraption_order.contraption.PistonContraptionMixin",
     "limits.ArmInteractionPointHandlerMixin",
     "limits.CogWheelBlockMixin",
-    "limits.SuperGlueSelectionPacketMixin"
+    "limits.SuperGlueSelectionPacketMixin",
+    "stock_keeper.categories.AbstractFilterMenuMixin",
+    "stock_keeper.categories.HeldItemGhostItemMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -47,6 +51,9 @@
     "limits.ClipboardScreenMixin",
     "limits.PackagePortScreenMixin",
     "limits.RadialWrenchMenuMixin",
-    "limits.SuperGlueSelectionHandlerMixin"
+    "limits.SuperGlueSelectionHandlerMixin",
+    "stock_keeper.categories.AbstractFilterScreenMixin",
+    "stock_keeper.categories.MultiPlayerGameModeMixin",
+    "stock_keeper.categories.StockKeeperCategoryScreenMixin"
   ]
 }
