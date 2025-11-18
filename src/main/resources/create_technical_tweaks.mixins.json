@@ -11,6 +11,7 @@
     "BlazeBurnerBlockEntityMixin",
     "ExtendoGripRenderHandlerMixin",
     "ItemStackMixin",
+    "IRotate$SpeedLevelMixin",
     "accessors.AbstractContainerMenuAccessor",
     "accessors.ContraptionAccessor",
     "accessors.MountedStorageManagerAccessor",

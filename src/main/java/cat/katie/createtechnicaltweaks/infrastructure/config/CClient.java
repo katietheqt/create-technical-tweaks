@@ -28,6 +28,8 @@ public class CClient extends ConfigBase {
     public final ConfigBool showToolboxTooltip = b(true, "showToolboxTooltip",
             "Adds a tooltip to toolboxes to view their contents"
     );
+    public final ConfigBool showFullPrecisionRpmValues = b(true, "showFullPrecisionRpm",
+            "Shows RPM values in full precision");
 
     // limit evasion
     @SuppressWarnings("unused")
