@@ -48,6 +48,7 @@ public class CClient extends ConfigBase {
             "Removes the range checks on mechanical arms",
             "This is possible without modding via schematics"
     );
+    public final ConfigBool rotateWithoutWrench = b(false, "rotateWithoutWrench", "Allows using the radial wrench menu without a wrench");
     public final ConfigBool wrenchDebugStick = b(false, "wrenchDebugStick",
             "Wildly extends the abilities of the radial wrench menu, allowing modification of any state of" +
                     " a block (similar to a debug stick)",

@@ -31,6 +31,7 @@
     "contraption_order.contraption.PistonContraptionMixin",
     "limits.ArmInteractionPointHandlerMixin",
     "limits.CogWheelBlockMixin",
+    "limits.RadialWrenchHandlerMixin",
     "limits.SuperGlueSelectionPacketMixin",
     "stock_keeper.categories.AbstractFilterMenuMixin",
     "stock_keeper.categories.HeldItemGhostItemMenuMixin"
