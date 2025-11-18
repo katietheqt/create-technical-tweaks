@@ -103,6 +103,7 @@ public class CClient extends ConfigBase {
     public final ConfigBool placeArmsNormallyWhenShifting = b(false, "placeArmsNormallyWhenShifting", "Places mechanical arms like normal blocks when crouching, instead of always selecting an inventory");
 
     // qol > stock keeper features
+    @SuppressWarnings("unused")
     public final ConfigGroup stockKeeper = group(2, "extendedStockKeeper", "Configure extended stock keeper behaviour");
     public final ConfigBool enhancedCategoryEditUI = b(true, "enhancedCategoryEditUI", "Enhanced the stock ticker category editing UI");
 
