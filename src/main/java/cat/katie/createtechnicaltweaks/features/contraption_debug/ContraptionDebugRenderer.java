@@ -10,6 +10,7 @@ import cat.katie.createtechnicaltweaks.mixin.accessors.MountedStorageManagerAcce
 import cat.katie.createtechnicaltweaks.infrastructure.rendering.CTTColors;
 import cat.katie.createtechnicaltweaks.infrastructure.rendering.CustomRenderTypes;
 import cat.katie.createtechnicaltweaks.util.CTTLang;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.api.contraption.storage.item.MountedItemStorage;
@@ -180,6 +181,8 @@ class ContraptionDebugRenderer {
         // TODO: unsure of the consequences of ending the batch here
         buffers.endBatch();
 
+        RenderSystem.disableDepthTest();
+
         // translate origin to world space
         Vector3f camPos = camera.getPosition().toVector3f();
 
@@ -212,6 +215,9 @@ class ContraptionDebugRenderer {
         }
 
         stack.popPose();
+
+        buffers.endBatch();
+        RenderSystem.enableDepthTest();
     }
 
     /**
