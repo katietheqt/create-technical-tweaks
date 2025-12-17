@@ -9,16 +9,15 @@ import net.createmod.catnip.theme.Color;
 import javax.annotation.Nonnull;
 
 public class CClient extends ConfigBase {
+    // no group
     public final ConfigEnum<PermaGoggles.PermaGogglesState> permaGoggles = e(PermaGoggles.PermaGogglesState.CREATIVE, "permaGoggles",
             "Whether to always treat the client as if they have goggles",
-            "- `DISABLED` uses vanilla Create behaviour (player must be wearing goggles)",
-            "- `CREATIVE` treats the player as always wearing goggles in creative / spectator",
-            "- `ALWAYS` treats the player as always wearing goggles"
+            "- DISABLED uses vanilla Create behaviour (player must be wearing goggles)",
+            "- CREATIVE treats the player as always wearing goggles in creative / spectator",
+            "- ALWAYS treats the player as always wearing goggles"
     );
 
-    // no group
-    public final ConfigBool clickThroughContraptions = b(false, "clickThroughContraptions",
-            "Allows clicking through normal blocks on contraptions");
+    public final ConfigBool placeArmsNormallyWhenShifting = b(false, "placeArmsNormallyWhenShifting", "Places mechanical arms like normal blocks when crouching, instead of always selecting an inventory");
 
     // rendering
     @SuppressWarnings("unused")
@@ -31,7 +30,7 @@ public class CClient extends ConfigBase {
     public final ConfigBool showFullPrecisionRpmValues = b(true, "showFullPrecisionRpm",
             "Shows RPM values in full precision");
 
-    // limit evasion
+    // limits
     @SuppressWarnings("unused")
     public final ConfigGroup limits = group(1, "limits", "Configure client-side bypasses of various limits");
     public final ConfigBool allowIllegalCogPlacement = b(false, "allowIllegalCogPlacement",
@@ -57,7 +56,7 @@ public class CClient extends ConfigBase {
             "This is NOT possible without modding, and has mostly dubious uses"
     );
 
-    // limits > glue boxes
+    // limits > glue
     @SuppressWarnings("unused")
     public final ConfigGroup glue = group(2, "glue", "Super-Glue");
     public final ConfigBool alwaysShowHoveredGlue = b(true, "alwaysShowHoveredGlue",
@@ -65,9 +64,29 @@ public class CClient extends ConfigBase {
     public final ConfigBool extraGluePunchingRange = b(false, "extraGluePunchingRange",
             "Increases your punching range for glue to 30 blocks");
 
-    // contraption order rendering
+    // contraptions
     @SuppressWarnings("unused")
-    public final ConfigGroup contraptionOrder = group(1, "contraptionOrder", "Configure contraption order visualization");
+    public final ConfigGroup contraptions = group(1, "contraptions", "Configure contraption-related settings");
+
+    public final ConfigBool clickThroughContraptions = b(false, "clickThroughContraptions",
+            "Allows clicking through normal blocks on contraptions");
+
+    public final ConfigBool accurateClientMinecarts = b(false, "accurateClientMinecarts",
+            "Simulates minecarts properly clientside",
+            "Ported from MendedMinecarts by 2No2Name and Inspector Talon"
+    );
+
+    public final ConfigBool disableMinecartInterpolation = b(false, "disableMinecartInterpolation",
+            "Disables client-side minecart interpolation",
+            "Ported from MendedMinecarts by 2No2Name and Inspector Talon"
+    );
+
+    public final ConfigBool disableContraptionInterpolation = b(false, "disableContraptionInterpolation",
+            "Disables client-side contraption interpolation");
+
+    // contraptions > order viewer
+    @SuppressWarnings("unused")
+    public final ConfigGroup contraptionOrder = group(2, "orderViewer", "Configure contraption order visualization");
 
     public final ConfigInt frontierOrderLineColor = i(CTTColors.TRANSLUCENT_GRAY.getRGB(), Integer.MIN_VALUE, Integer.MAX_VALUE, "frontierOrderLineColor",
             "The color to use for the frontier order lines",
@@ -99,17 +118,10 @@ public class CClient extends ConfigBase {
             "[in Hex: #AaRrGgBb]", ConfigAnnotations.IntDisplay.HEX.asComment()
     );
 
-    // qol
+    // enhanced stock keeper
     @SuppressWarnings("unused")
-    public final ConfigGroup qol = group(1, "qol", "Configure miscellaneous QoL stuff");
-    public final ConfigBool placeArmsNormallyWhenShifting = b(false, "placeArmsNormallyWhenShifting", "Places mechanical arms like normal blocks when crouching, instead of always selecting an inventory");
-
-    // qol > stock keeper features
-    @SuppressWarnings("unused")
-    public final ConfigGroup stockKeeper = group(2, "extendedStockKeeper", "Configure extended stock keeper behaviour");
+    public final ConfigGroup stockKeeper = group(1, "extendedStockKeeper", "Configure extended stock keeper behaviour");
     public final ConfigBool enhancedCategoryEditUI = b(true, "enhancedCategoryEditUI", "Enhanced the stock ticker category editing UI");
-
-
 
     @Override
     @Nonnull

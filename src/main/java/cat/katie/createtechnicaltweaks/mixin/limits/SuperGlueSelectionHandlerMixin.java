@@ -118,7 +118,8 @@ public class SuperGlueSelectionHandlerMixin {
             )
     )
     private boolean allowUnlimitedGlueBoxes(BlockPos instance, Vec3i vec3i, double v, Operation<Boolean> original) {
-        if (AllConfigs.server().unlimitedGlueBoxes.get()) {
+        assert AllConfigs.server().specification != null;
+        if (AllConfigs.server().specification.isLoaded() && AllConfigs.server().unlimitedGlueBoxes.get()) {
             return true;
         }
 
