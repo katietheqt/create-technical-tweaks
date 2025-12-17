@@ -22,8 +22,12 @@ public class CClient extends ConfigBase {
     // rendering
     @SuppressWarnings("unused")
     public final ConfigGroup rendering = group(1, "rendering", "Configure rendering tweaks");
-    public final ConfigBool renderOffhandExtendoGrip = b(true, "renderOffhandExtendoGrip",
-            "Disables rendering of the first-person extendo-grip model");
+    public final ConfigBool offhandExtendoGrip = b(true, "renderOffhandExtendoGrip",
+            "Whether to render the first-person extendo-grip model");
+    public final ConfigBool divingHelmetTexture = b(true, "useDivingHelmetTexture",
+            "Whether to show the diving helmet texture");
+    public final ConfigBool netheriteBacktankArm = b(true, "renderNetheriteBacktankArm",
+            "Whether to render the backtank skin replacement");
     public final ConfigBool showToolboxTooltip = b(true, "showToolboxTooltip",
             "Adds a tooltip to toolboxes to view their contents"
     );

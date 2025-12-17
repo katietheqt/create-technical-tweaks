@@ -17,7 +17,7 @@ public class ExtendoGripRenderHandlerMixin {
             )
     )
     private static ItemStack forceOffhandRenderingOff(ItemStack stack) {
-        boolean enabled = AllConfigs.client().renderOffhandExtendoGrip.get();
+        boolean enabled = AllConfigs.client().offhandExtendoGrip.get();
 
         if (enabled) {
             return stack;
