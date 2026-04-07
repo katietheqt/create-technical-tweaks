@@ -34,6 +34,18 @@ public class CClient extends ConfigBase {
     public final ConfigBool showFullPrecisionRpmValues = b(true, "showFullPrecisionRpm",
             "Shows RPM values in full precision");
 
+    // rendering > performance
+    @SuppressWarnings("unused")
+    public final ConfigGroup renderingPerformance = group(2, "renderingPerformance", "Performance Settings");
+    public final ConfigBool bulkProcessingParticles = b(true, "renderBulkProcessingParticles",
+            "Whether to render particles for encased fan bulk processing");
+    public final ConfigBool disableForeignCobbleParticles = b(true, "disableForeignCobbleParticles",
+            "Whether to disable block-broken particles for cobblestone blocks not broken by yourself.\n" +
+                    "2x as \"laggy\" as the block-breaking progress indicator");
+    public final ConfigBool disableForeignCobbleBreakingIndicator = b(false, "disableForeignCobbleBreakingIndicator",
+            "Whether to disable the block breaking indicator for cobblestone blocks not broken by yourself.\n" +
+                    "half as \"laggy\" as the block-broken particles");
+
     // limits
     @SuppressWarnings("unused")
     public final ConfigGroup limits = group(1, "limits", "Configure client-side bypasses of various limits");

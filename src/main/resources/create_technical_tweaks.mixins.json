@@ -60,6 +60,11 @@
     "limits.PackagePortScreenMixin",
     "limits.RadialWrenchMenuMixin",
     "limits.SuperGlueSelectionHandlerMixin",
+    "performance.ClientLevelEventMixin",
+    "performance.BulkFanMixins$NoBlastingSmokeParticles",
+    "performance.BulkFanMixins$NoHauntingSmokeParticles",
+    "performance.BulkFanMixins$NoSmokingSmokeParticles",
+    "performance.BulkFanMixins$NoWashingSmokeParticles",
     "stock_keeper.categories.AbstractFilterScreenMixin",
     "stock_keeper.categories.MultiPlayerGameModeMixin",
     "stock_keeper.categories.StockKeeperCategoryScreenMixin"
