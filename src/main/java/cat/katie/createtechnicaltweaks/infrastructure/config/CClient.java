@@ -26,6 +26,8 @@ public class CClient extends ConfigBase {
             "Whether to render the first-person extendo-grip model");
     public final ConfigBool divingHelmetTexture = b(true, "useDivingHelmetTexture",
             "Whether to show the diving helmet texture");
+    public final ConfigBool backtankRendering = b(true, "backtankRendering",
+            "Whether to show the backtank texture and model");
     public final ConfigBool netheriteBacktankArm = b(true, "renderNetheriteBacktankArm",
             "Whether to render the backtank skin replacement");
     public final ConfigBool showToolboxTooltip = b(true, "showToolboxTooltip",
@@ -33,14 +35,18 @@ public class CClient extends ConfigBase {
     );
     public final ConfigBool showFullPrecisionRpmValues = b(true, "showFullPrecisionRpm",
             "Shows RPM values in full precision");
+    public final ConfigBool showComparatorSignal = b(false, "showComparatorSignal",
+            "Shows comparator signal strength in goggles");
+    public final ConfigBool disableProcessingParticles = b(false, "disableProcessingParticles",
+            "Disables rendering of bulk fan processing particles");
+    public final ConfigBool disableForeignCobbleParticles = b(false, "disableForeignCobbleParticles",
+            "Disables rendering of cobblestone breaking particles that don't originate from the client");
+    public final ConfigBool disableForeignCobbleBreakingOverlay = b(false, "disableForeignCobbleBreakingOverlay",
+            "Disables rendering of cobblestone breaking overlays that don't originate from the client");
 
     // limits
     @SuppressWarnings("unused")
     public final ConfigGroup limits = group(1, "limits", "Configure client-side bypasses of various limits");
-    public final ConfigBool allowIllegalCogPlacement = b(false, "allowIllegalCogPlacement",
-            "Allows cog placement in all positions",
-            "This is possible without modding in many ways (contraptions, schematics, etc.)"
-    );
     public final ConfigBool uncapClipboards = b(false, "uncapClipboards",
             "Allows editing clipboards with excessively long text",
             "This is possible without modding using a resource pack or via schematics"
@@ -59,6 +65,7 @@ public class CClient extends ConfigBase {
                     " a block (similar to a debug stick)",
             "This is NOT possible without modding, and has mostly dubious uses"
     );
+    public final ConfigBool disableNbtDepthLimit = b(false, "disableNbtDepthLimit", "Disables the NBT reader depth limit");
 
     // limits > glue
     @SuppressWarnings("unused")
@@ -121,11 +128,6 @@ public class CClient extends ConfigBase {
             "The color to use for the text labels on the anchor position",
             "[in Hex: #AaRrGgBb]", ConfigAnnotations.IntDisplay.HEX.asComment()
     );
-
-    // enhanced stock keeper
-    @SuppressWarnings("unused")
-    public final ConfigGroup stockKeeper = group(1, "extendedStockKeeper", "Configure extended stock keeper behaviour");
-    public final ConfigBool enhancedCategoryEditUI = b(true, "enhancedCategoryEditUI", "Enhanced the stock ticker category editing UI");
 
     @Override
     @Nonnull

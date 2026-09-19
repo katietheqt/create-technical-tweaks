@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.mixin;
+package cat.katie.createtechnicaltweaks.mixin.rendering;
 
 import cat.katie.createtechnicaltweaks.infrastructure.config.AllConfigs;
 import com.simibubi.create.content.equipment.armor.NetheriteBacktankFirstPersonRenderer;

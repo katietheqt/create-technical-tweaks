@@ -27,7 +27,7 @@ public abstract class AbstractMinecartMixin extends VehicleEntity {
             )
     )
     private boolean forceServersideBehaviour(boolean original) {
-        if (AllConfigs.client().accurateClientMinecarts.get()) {
+        if (level().isClientSide && AllConfigs.client().accurateClientMinecarts.get()) {
             return false;
         }
 
@@ -40,7 +40,7 @@ public abstract class AbstractMinecartMixin extends VehicleEntity {
             cancellable = true
     )
     private void disableInterpolation(double x, double y, double z, float yRot, float xRot, int steps, CallbackInfo ci) {
-        if (AllConfigs.client().disableMinecartInterpolation.get()) {
+        if (level().isClientSide && AllConfigs.client().disableMinecartInterpolation.get()) {
             super.lerpTo(x, y, z, yRot, xRot, steps);
             ci.cancel();
         }

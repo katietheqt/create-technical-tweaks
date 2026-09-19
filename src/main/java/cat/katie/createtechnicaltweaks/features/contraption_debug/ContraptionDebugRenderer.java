@@ -17,6 +17,7 @@ import com.simibubi.create.api.contraption.storage.item.MountedItemStorage;
 import com.simibubi.create.content.contraptions.AssemblyException;
 import com.simibubi.create.content.contraptions.MountedStorageManager;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
+import com.simibubi.create.foundation.collision.CollisionList;
 import net.createmod.catnip.lang.LangBuilder;
 import net.createmod.catnip.theme.Color;
 import net.minecraft.ChatFormatting;
@@ -29,7 +30,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.joml.Quaternionf;
@@ -264,13 +264,26 @@ class ContraptionDebugRenderer {
     }
 
     private void drawCollisionBoxes(PoseStack stack, MultiBufferSource buffers) {
-        state.contraption().getSimplifiedEntityColliders().ifPresent(boxes -> {
-            VertexConsumer consumer = buffers.getBuffer(RenderType.lines());
+        CollisionList colliders = state.contraption().getSimplifiedEntityColliders();
+        if (colliders == null) {
+            return;
+        }
 
-            for (AABB bb : boxes) {
-                LevelRenderer.renderLineBox(stack, consumer, bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ, 0.5F, 0.5F, 1.0F, 1.0F, 0.5F, 0.5F, 1.0F);
-            }
-        });
+        VertexConsumer consumer = buffers.getBuffer(RenderType.lines());
+
+        for (int i = 0; i < colliders.size; i++) {
+            LevelRenderer.renderLineBox(
+                    stack,
+                    consumer,
+                    colliders.centerX[i] - colliders.extentsX[i],
+                    colliders.centerY[i] - colliders.extentsY[i],
+                    colliders.centerZ[i] - colliders.extentsZ[i],
+                    colliders.centerX[i] + colliders.extentsX[i],
+                    colliders.centerY[i] + colliders.extentsY[i],
+                    colliders.centerZ[i] + colliders.extentsZ[i],
+                    0.5F, 0.5F, 1.0F, 1.0F, 0.5F, 0.5F, 1.0F
+            );
+        }
     }
 
     private void drawString(Component text, float yOff, Font font, PoseStack stack, MultiBufferSource buffers, Camera camera, float partialTicks) {

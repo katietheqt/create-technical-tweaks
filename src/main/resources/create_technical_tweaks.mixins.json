@@ -4,27 +4,25 @@
   "package": "cat.katie.createtechnicaltweaks.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "create_technical_tweaks.refmap.json",
-  "plugin": "cat.katie.createtechnicaltweaks.mixin.CTTMixinPlugin",
   "mixins": [
     "AbstractContraptionEntityMixin",
     "AbstractMinecartMixin",
     "ArmInteractionPointHandlerMixin",
     "ArmItemMixin",
-    "BaseArmorItemMixin",
     "BlazeBurnerBlockEntityMixin",
+    "ComparatorBlockEntityMixin",
     "EntityMixin",
-    "ExtendoGripRenderHandlerMixin",
     "IRotate$SpeedLevelMixin",
     "ItemStackMixin",
-    "NetheriteBacktankFirstPersonRendererMixin",
     "ServerEntityMixin",
-    "accessors.AbstractContainerMenuAccessor",
     "accessors.ContraptionAccessor",
     "accessors.MountedStorageManagerAccessor",
     "accessors.ToolboxInventoryAccessor",
     "bugfix.AbstractContraptionEntityMixin",
     "bugfix.ClientEventsMixin",
     "bugfix.CommonEventsMixin",
+    "bugfix.KineticBlockEntityMixin",
+    "bugfix.VirtualRenderWorldMixin",
     "contraption_order.EntityMixin",
     "contraption_order.GoggleOverlayRendererMixin",
     "contraption_order.block.BearingBlockMixin",
@@ -37,11 +35,14 @@
     "contraption_order.contraption.ContraptionMixin",
     "contraption_order.contraption.PistonContraptionMixin",
     "limits.ArmInteractionPointHandlerMixin",
-    "limits.CogWheelBlockMixin",
+    "limits.NbtAccounterMixin",
     "limits.RadialWrenchHandlerMixin",
     "limits.SuperGlueSelectionPacketMixin",
-    "stock_keeper.categories.AbstractFilterMenuMixin",
-    "stock_keeper.categories.HeldItemGhostItemMenuMixin"
+    "rendering.AirCurrentMixin",
+    "rendering.BacktankItem$LayeredMixin",
+    "rendering.BaseArmorItemMixin",
+    "rendering.ExtendoGripRenderHandlerMixin",
+    "rendering.NetheriteBacktankFirstPersonRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -50,7 +51,6 @@
   "client": [
     "ContraptionHandlerClientMixin",
     "accessors.RenderTypeAccessor",
-    "bugfix.RadialWrenchMenuMixin",
     "contraption_order.LevelRendererMixin",
     "contraption_order.entity.ControlledContraptionEntityClientMixin",
     "contraption_order.entity.GantryContraptionEntityClientMixin",
@@ -60,8 +60,7 @@
     "limits.PackagePortScreenMixin",
     "limits.RadialWrenchMenuMixin",
     "limits.SuperGlueSelectionHandlerMixin",
-    "stock_keeper.categories.AbstractFilterScreenMixin",
-    "stock_keeper.categories.MultiPlayerGameModeMixin",
-    "stock_keeper.categories.StockKeeperCategoryScreenMixin"
+    "rendering.BacktankArmorLayerMixin",
+    "rendering.ClientLevelMixin"
   ]
 }

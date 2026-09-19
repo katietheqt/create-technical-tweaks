@@ -1,4 +1,4 @@
-package cat.katie.createtechnicaltweaks.mixin;
+package cat.katie.createtechnicaltweaks.mixin.rendering;
 
 import cat.katie.createtechnicaltweaks.infrastructure.config.AllConfigs;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
@@ -18,13 +18,11 @@ public class BaseArmorItemMixin {
                     opcode = Opcodes.GETFIELD
             )
     )
-    private ResourceLocation disableScubaHelmetTexture(ResourceLocation original) {
-        if (!AllConfigs.client().divingHelmetTexture.get()) {
-            String originalString = original.toString();
+    private ResourceLocation disableDivingHelmetTexture(ResourceLocation original) {
+        String originalString = original.toString();
 
-            if (originalString.equals("create:netherite_diving")) {
-                return ResourceLocation.parse("minecraft:netherite");
-            }
+        if (!AllConfigs.client().divingHelmetTexture.get() && originalString.equals("create:netherite_diving")) {
+            return ResourceLocation.parse("minecraft:netherite");
         }
 
         return original;

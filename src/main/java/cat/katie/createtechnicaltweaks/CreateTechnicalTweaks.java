@@ -34,6 +34,7 @@ public class CreateTechnicalTweaks {
 
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            // setup gantry carriage interaction behaviour for gantry visualisation
             MovingInteractionBehaviour existingBehaviour = MovingInteractionBehaviour.REGISTRY.get(AllBlocks.GANTRY_CARRIAGE.get());
 
             if (existingBehaviour == null) {

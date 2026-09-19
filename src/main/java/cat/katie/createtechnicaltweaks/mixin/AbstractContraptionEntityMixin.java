@@ -18,6 +18,7 @@ public abstract class AbstractContraptionEntityMixin extends Entity {
 
     @Inject(
             method = "setPos",
+            require = 0, // Incompatibility with Aeronautics
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/entity/Entity;setPos(DDD)V",
@@ -25,7 +26,7 @@ public abstract class AbstractContraptionEntityMixin extends Entity {
             )
     )
     private void disableContraptionInterpolation(double x, double y, double z, CallbackInfo ci) {
-        if (AllConfigs.client().disableContraptionInterpolation.get() && level().isClientSide) {
+        if (level().isClientSide && AllConfigs.client().disableContraptionInterpolation.get()) {
             setOldPosAndRot();
         }
     }
